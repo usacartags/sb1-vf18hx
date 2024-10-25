@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --blur-color: rgba(255, 255, 255, 0.1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  
+  body {
+    @apply antialiased bg-black text-white;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  /* Enhanced focus states for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-white/30 ring-offset-2 ring-offset-black;
+  }
+
+  /* Improved text selection */
+  ::selection {
+    @apply bg-white/20 text-white;
+  }
+}
+
+@layer components {
+  /* Enhanced button styles */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium rounded-full transition-all duration-300 select-none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .btn-primary {
+    @apply bg-white text-black hover:bg-white/90 active:scale-95 hover:scale-[1.02];
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+  
+  .btn-secondary {
+    @apply bg-white/10 text-white backdrop-blur-xl hover:bg-white/20 active:scale-95 hover:scale-[1.02];
+  }
+
+  /* Enhanced glass effect */
+  .glass-card {
+    @apply bg-white/[0.08] backdrop-blur-xl border border-white/[0.08] rounded-2xl transition-all duration-300;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .glass-card:hover {
+    @apply bg-white/[0.12] border-white/[0.12];
+    transform: translateY(-2px);
+  }
+
+  /* Typography */
+  .section-heading {
+    @apply text-5xl sm:text-6xl md:text-7xl font-semibold text-white tracking-tight;
+    letter-spacing: -0.02em;
+  }
+
+  .page-container {
+    @apply max-w-[1024px] mx-auto px-4 sm:px-6 lg:px-8 py-32;
+  }
+
+  /* Enhanced navigation */
+  .nav-link {
+    @apply relative text-sm text-white/70 hover:text-white transition-all duration-300;
+  }
+
+  .nav-link.active {
+    @apply text-white;
+  }
+
+  /* Tooltip styles */
+  .tooltip {
+    @apply relative inline-block;
+  }
+
+  .tooltip-content {
+    @apply invisible absolute z-50 px-3 py-2 text-sm text-white bg-black/90 rounded-lg opacity-0 transition-all duration-300 
+           backdrop-blur-xl border border-white/10 whitespace-nowrap;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+
+  .tooltip:hover .tooltip-content {
+    @apply visible opacity-100;
+  }
+
+  /* Top tooltip */
+  .tooltip-top {
+    @apply bottom-full left-1/2 -translate-x-1/2 mb-2;
+  }
+
+  .tooltip-top::after {
+    content: '';
+    @apply absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-black/90;
+  }
+
+  /* Bottom tooltip */
+  .tooltip-bottom {
+    @apply top-full left-1/2 -translate-x-1/2 mt-2;
+  }
+
+  .tooltip-bottom::after {
+    content: '';
+    @apply absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-black/90;
+  }
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Enhanced gradients */
+.hero-gradient {
+  background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+
+.feature-gradient {
+  background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.7));
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/20 rounded-full hover:bg-white/30 transition-colors;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Enhanced backdrop blur for Safari */
+@supports (-webkit-backdrop-filter: none) {
+  .glass-card, .btn-secondary {
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+/* Print styles */
+@media print {
+  .btn, .nav-link {
+    @apply text-black border border-gray-200;
+  }
+  
+  .glass-card {
+    @apply bg-white border border-gray-200 shadow-none;
+  }
+}
